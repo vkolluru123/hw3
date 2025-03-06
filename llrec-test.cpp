@@ -67,9 +67,14 @@ void dealloc(Node* head)
 //   function object struct declarations
 // -----------------------------------------------
 
-
-
-
+struct myPredicate {
+  // predicate will return true for anything less than the number
+  int number;
+  myPredicate(int i) : number(i) {};
+  bool operator()(int numberr) {
+    return numberr < number;
+  }
+};
 
 int main(int argc, char* argv[])
 {
@@ -85,10 +90,20 @@ int main(int argc, char* argv[])
     cout << "Original list: ";
     print(head);
 
-    // Test out your linked list code
+    Node* smaller = NULL;
+    Node* larger = NULL;
+    llpivot(head,smaller,larger,9);
 
+    cout << "llpivot Smaller: ";
+    print(smaller);
+    cout << "llpivot Larger: ";
+    print(larger);
 
-
+    head = readList(argv[1]);
+    myPredicate pred = myPredicate(9);
+    head = llfilter(head, pred);
+    cout << "llfilter list: " << endl;
+    print(head);
     
     return 0;
 
